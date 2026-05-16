@@ -1,0 +1,2 @@
+# Mock-mode logging uses only the Python standard library.
+# Hardware-mode ADS1115 support will be added later.
