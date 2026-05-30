@@ -105,10 +105,11 @@ def log_csv(args):
             "sensor",
             "adc",
             "channel",
-            "raw_value",
-            "voltage_v",
+            "mode",
             "label",
-            "mode"
+            "sample_index",
+            "raw_value",
+            "voltage_v"
         ])
 
         print("Logging OPT101 data to:")
@@ -136,15 +137,18 @@ def log_csv(args):
                     adc_name = "mock"
                     channel_name = "A{}".format(args.channel)
 
+                sample_index = count + 1
+
                 writer.writerow([
                     timestamp,
                     "OPT101",
                     adc_name,
                     channel_name,
-                    raw_value,
-                    "{:.6f}".format(voltage),
+                    args.mode,
                     args.label,
-                    args.mode
+                    sample_index,
+                    raw_value,
+                    "{:.6f}".format(voltage)
                 ])
                 csv_file.flush()
 

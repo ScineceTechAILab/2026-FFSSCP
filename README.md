@@ -296,16 +296,17 @@ CSV 字段：
 | `sensor` | 传感器名称，当前为 `OPT101` |
 | `adc` | ADC 名称，硬件模式为 `ADS1115` |
 | `channel` | 输入通道，例如 `A0` |
+| `mode` | 采集模式，`mock` 或 `hardware` |
+| `label` | 样本标签 |
+| `sample_index` | 样本序号，从 `1` 开始递增 |
 | `raw_value` | ADS1115 原始 ADC 数值 |
 | `voltage_v` | 换算后的电压值，单位 V |
-| `label` | 样本标签 |
-| `mode` | 采集模式，`mock` 或 `hardware` |
 
 示例：
 
 ```csv
-timestamp,sensor,adc,channel,raw_value,voltage_v,label,mode
-2026-05-16T01:09:00.338,OPT101,ADS1115,A0,26422,3.302750,normal,hardware
+timestamp,sensor,adc,channel,mode,label,sample_index,raw_value,voltage_v
+2026-05-16T01:09:00.338,OPT101,ADS1115,A0,hardware,normal,1,26422,3.302750
 ```
 
 ---
