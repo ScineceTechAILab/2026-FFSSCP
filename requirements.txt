@@ -1,2 +1,7 @@
 # Mock-mode logging uses only the Python standard library.
-# Hardware-mode ADS1115 support will be added later.
+#
+# Hardware-mode ADS1115 support uses the system SMBus package on Jetson Nano:
+#   sudo apt install -y python3-smbus i2c-tools
+#
+# These are OS packages, not pip packages, so this file intentionally has no
+# installable Python dependencies.
