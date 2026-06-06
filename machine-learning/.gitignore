@@ -1,0 +1,11 @@
+.idea/
+.venv/
+venv/
+env/
+datasets/
+.conda/
+.mamba/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
