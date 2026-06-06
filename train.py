@@ -16,17 +16,15 @@ class TrainConfig:
     epochs: int = 200
     batch_size: int = 32
     lr: float = 1e-3
-    seed: int = 42
-    n_samples: int = 512
-    noise_std: float = 0.1
+    seed: int = 42      #随机种子，用于后续划分数据集与初始化linear层权重
     val_split: float = 0.2
     log_interval: int = 20
     device: str = "cpu"
     save_path: str = ""
-    csv_path: str = ""
-    csv_intensity_col: str = "voltage_v"
-    csv_delimiter: str = ","
-    csv_has_header: bool = False
+    csv_path: str = ""      # CSV文件路径，用于读取光散射强度
+    csv_intensity_col: str = "voltage_v"           #指定从 CSV 的哪一列读取光强
+    csv_delimiter: str = ","        #CSV 分隔符
+    csv_has_header: bool = False        # CSV 是否显式有表头
 
 
 def set_seed(seed: int) -> None:
@@ -35,15 +33,6 @@ def set_seed(seed: int) -> None:
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-
-
-def make_synthetic_dataset(
-    n_samples: int, noise_std: float, device: torch.device
-) -> TensorDataset:
-    x = torch.linspace(-1.0, 1.0, n_samples, device=device).unsqueeze(1)
-    noise = torch.randn_like(x) * noise_std
-    y = 3.0 * x + 0.5 + noise
-    return TensorDataset(x, y)
 
 
 def _is_int_string(value: str) -> bool:

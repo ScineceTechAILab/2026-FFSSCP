@@ -13,8 +13,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--n-samples", type=int, default=512)
-    parser.add_argument("--noise-std", type=float, default=0.1)
     parser.add_argument("--val-split", type=float, default=0.2)
     parser.add_argument("--log-interval", type=int, default=20)
     parser.add_argument("--device", type=str, default="auto")
@@ -39,8 +37,6 @@ def main() -> None:
         batch_size=args.batch_size,
         lr=args.lr,
         seed=args.seed,
-        n_samples=args.n_samples,
-        noise_std=args.noise_std,
         val_split=args.val_split,
         log_interval=args.log_interval,
         device=resolve_device(args.device),

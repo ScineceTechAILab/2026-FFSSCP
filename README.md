@@ -75,11 +75,6 @@ python3 --version
 python3 -m pip install -r requirements.txt
 ```
 
-训练示例（使用合成数据进行线性回归）：
-
-```bash
-python3 main.py --epochs 200 --log-interval 20
-```
 
 训练示例（使用 CSV 数据）：
 
@@ -98,8 +93,6 @@ CSV 说明：
 
 - `--device auto|cpu|cuda` 自动或指定设备
 - `--save-path ./model.pt` 保存最佳验证集模型
-- `--n-samples 512` 合成数据样本数
-- `--noise-std 0.1` 噪声强度
 - `--csv-path ./data.csv` CSV 文件路径
 - `--csv-target-col -1` 目标列索引
 - `--csv-delimiter ,` CSV 分隔符
