@@ -1,0 +1,32 @@
+﻿hardware:
+  mode: mock
+  bus: 1
+  address: 0x48
+  channel: 0
+  gain: 4.096
+
+collect:
+  count: 20
+  interval: 0.5
+  output_dir: data/samples
+  file_prefix: sample
+
+train:
+  data_path: data/samples
+  feature_col: raw_value
+  delimiter: ","
+  has_header: true
+  epochs: 200
+  batch_size: 32
+  lr: 0.001
+  seed: 42
+  val_split: 0.2
+  log_interval: 20
+  device: auto
+  output_dir: models/latest
+
+predict:
+  model_path: models/latest/model.pt
+  feature_col: raw_value
+  delimiter: ","
+  has_header: true

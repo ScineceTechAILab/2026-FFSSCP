@@ -9,3 +9,10 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .ipynb_checkpoints/
+*.log
+data/*.csv
+data/*.xlsx
+.DS_Store
+data/samples/*.csv
+data/samples/*.txt
+models/
