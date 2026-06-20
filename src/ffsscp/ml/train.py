@@ -14,6 +14,7 @@ from ffsscp.ml.config import TrainConfig
 from ffsscp.ml.model import Network
 
 
+# 固定随机种子，保证数据划分和模型初始化尽量可复现。
 def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -22,6 +23,7 @@ def set_seed(seed: int) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
+# 将完整数据集拆分为训练集和验证集，并构造 DataLoader。
 def build_loaders(dataset: TensorDataset, batch_size: int, val_split: float) -> Tuple[DataLoader, DataLoader]:
     if len(dataset) < 1:
         raise ValueError("Dataset is empty")
@@ -36,6 +38,7 @@ def build_loaders(dataset: TensorDataset, batch_size: int, val_split: float) -> 
     return train_loader, val_loader
 
 
+# 在验证集上评估模型当前损失。
 def evaluate(model: nn.Module, loader: DataLoader, loss_fn: nn.Module) -> float:
     model.eval()
     total_loss = 0.0
@@ -48,6 +51,12 @@ def evaluate(model: nn.Module, loader: DataLoader, loss_fn: nn.Module) -> float:
             count += x.size(0)
     return total_loss / max(count, 1)
 
+
+# 执行完整训练流程：
+# 1. 加载样本数据
+# 2. 构建训练/验证集
+# 3. 训练模型并保存最佳权重
+# 4. 输出训练配置与指标文件
 
 def train_model(config: TrainConfig) -> Tuple[nn.Module, Dict[str, list]]:
     device = torch.device(config.device)
@@ -89,6 +98,7 @@ def train_model(config: TrainConfig) -> Tuple[nn.Module, Dict[str, list]]:
         history["train_loss"].append(train_loss)
         history["val_loss"].append(val_loss)
 
+        # 始终保存当前验证集表现最好的模型参数
         if val_loss < best_val:
             best_val = val_loss
             torch.save(model.state_dict(), str(model_path))
@@ -96,7 +106,9 @@ def train_model(config: TrainConfig) -> Tuple[nn.Module, Dict[str, list]]:
         if config.log_interval and epoch % config.log_interval == 0:
             print("Epoch {:03d}/{} train={:.6f} val={:.6f}".format(epoch, config.epochs, train_loss, val_loss))
 
+    # 保存本次训练用到的配置，便于复现实验
     (output_dir / "train_config.json").write_text(json.dumps(asdict(config), indent=2), encoding="utf-8")
+    # 保存最终损失和最佳验证损失，便于快速查看训练结果
     (output_dir / "metrics.json").write_text(
         json.dumps(
             {

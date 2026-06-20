@@ -3,6 +3,8 @@
 from ffsscp.ml.config import CollectConfig, HardwareConfig, PredictConfig, TrainConfig
 
 
+# 将 YAML 中的标量字符串转成 Python 基本类型，
+# 例如 true -> bool，0.5 -> float，20 -> int。
 def _parse_scalar(value: str):
     text = value.strip()
     if text.lower() in {"true", "false"}:
@@ -15,6 +17,8 @@ def _parse_scalar(value: str):
         return text.strip('"').strip("'")
 
 
+# 读取YAML 配置文件。
+# 当前仅支持“section -> key: value”的两层结构，已足够覆盖本项目配置需求。
 def load_simple_yaml(path: str) -> dict:
     result = {}
     current_section = None
@@ -33,6 +37,8 @@ def load_simple_yaml(path: str) -> dict:
     return result
 
 
+# 将原始字典配置进一步映射为 dataclass，
+# 方便后续在 app / ml 流程中用点号方式访问字段。
 def load_configs(path: str):
     raw = load_simple_yaml(path)
     hardware = HardwareConfig(**raw.get("hardware", {}))
