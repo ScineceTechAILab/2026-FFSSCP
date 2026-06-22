@@ -18,7 +18,7 @@ FFSSCP = Fracturing Flowback Fluid Suspended Solids Concentration Prediction
 
 | 项目 | 版本/说明 |
 |---|---|
-| 系统平台 | Jetson Nano 2GB |
+| 系统平台 | Jetson Xavier NX 8GB |
 | Python | Python 3.6.9 |
 | Git 分支 | main |
 
