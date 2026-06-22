@@ -1,32 +1,32 @@
 ﻿hardware:
-  mode: mock
-  bus: 1
-  address: 0x48
-  channel: 0
-  gain: 4.096
+  mode: mock  #mock，hardware
+  bus: 1  #I2C 总线号
+  address: 0x48 #ADS1115 的 I2C 地址
+  channel: 0  #ADS1115 输入通道
+  gain: 4.096 #ADS1115 的量程配置,影响 raw_value 转成 voltage_v 的换算范围
 
 collect:
-  count: 20
-  interval: 0.5
-  output_dir: data/samples
-  file_prefix: sample
+  count: 20 #一次采样的样本数量
+  interval: 0.5 #采样间隔，单位为秒
+  output_dir: data/samples #采样结果保存目录
+  file_prefix: sample #采样结果文件前缀，最终文件名将是 {file_prefix}_{timestamp}.csv
 
 train:
-  data_path: data/samples
-  feature_col: raw_value
-  delimiter: ","
-  has_header: true
-  epochs: 200
-  batch_size: 32
-  lr: 0.001
-  seed: 42
-  val_split: 0.2
-  log_interval: 20
-  device: auto
-  output_dir: models/latest
+  data_path: data/samples #训练数据来源路径
+  feature_col: raw_value  #训练时使用的特征列名
+  delimiter: ","  #CSV 分隔符
+  has_header: true  #CSV 是否包含表头
+  epochs: 200 #训练轮数
+  batch_size: 32  #每次送入模型训练的样本数
+  lr: 0.001 #学习率
+  seed: 42  #数据集划分随机种子
+  val_split: 0.2  #验证集比例
+  log_interval: 20  #每隔多少个 epoch 打印一次训练日志
+  device: auto  #训练设备
+  output_dir: models/latest #训练结果输出目录
 
 predict:
-  model_path: models/latest/model.pt
-  feature_col: raw_value
-  delimiter: ","
-  has_header: true
+  model_path: models/latest/model.pt  #模型文件路径
+  feature_col: raw_value  #预测时使用的特征列
+  delimiter: ","  #预测输入 CSV 的分隔符
+  has_header: true  #预测输入 CSV 是否有表头
