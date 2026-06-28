@@ -1,11 +1,8 @@
 # 基础依赖与类型扩展
 certifi==2021.5.30
-dataclasses==0.8
+dataclasses==0.8; python_version < "3.7"
 typing-extensions==4.1.1
-wincertstore==0.2
+wincertstore==0.2; platform_system == "Windows"
+
 # 科学计算核心库
 numpy==1.19.5
-# PyTorch 核心（CUDA 11.3）
-# 注：因为 cu113 是特殊编译版本，建议通过官方 Whl 镜像源索引
---find-links https://download.pytorch.org/whl/cu113/torch_stable.html
-torch==1.10.2+cu113
