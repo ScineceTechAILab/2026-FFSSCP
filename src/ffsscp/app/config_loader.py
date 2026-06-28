@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 from ffsscp.ml.config import CollectConfig, HardwareConfig, PredictConfig, TrainConfig
 
@@ -6,7 +6,9 @@ from ffsscp.ml.config import CollectConfig, HardwareConfig, PredictConfig, Train
 # 将 YAML 中的标量字符串转成 Python 基本类型，
 # 例如 true -> bool，0.5 -> float，20 -> int。
 def _parse_scalar(value: str):
-    text = value.strip()
+    text = value.split("#", 1)[0].strip()
+    if not text:
+        return ""
     if text.lower() in {"true", "false"}:
         return text.lower() == "true"
     try:
