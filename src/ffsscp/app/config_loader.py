@@ -24,7 +24,7 @@ def _parse_scalar(value: str):
 def load_simple_yaml(path: str) -> dict:
     result = {}
     current_section = None
-    for raw_line in Path(path).read_text(encoding="utf-8").splitlines():
+    for raw_line in Path(path).read_text(encoding="utf-8-sig").splitlines():
         line = raw_line.rstrip()
         if not line or line.lstrip().startswith("#"):
             continue
