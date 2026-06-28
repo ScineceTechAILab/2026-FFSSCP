@@ -47,7 +47,10 @@ class ADS1115Reader:
         self.pga_bits, self.full_scale_voltage = self.PGA_CONFIG[gain]
 
         if bus is None:
-            import smbus
+            try:
+                import smbus
+            except ImportError:
+                import smbus2 as smbus
 
             self.bus = smbus.SMBus(bus_number)
         else:

@@ -1,5 +1,5 @@
 ﻿hardware:
-  mode: mock  #mock，hardware
+  mode: hardware  #mock，hardware
   bus: 1  #I2C 总线号
   address: 0x48 #ADS1115 的 I2C 地址
   channel: 0  #ADS1115 输入通道
